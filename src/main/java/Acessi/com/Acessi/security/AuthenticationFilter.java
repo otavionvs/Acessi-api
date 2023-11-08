@@ -22,25 +22,16 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(request.getRequestURI().startsWith("/api/login") ||
-                request.getRequestURI().equals("/api/logout") ||
-                request.getRequestURI().startsWith("/api/servico") ||
-                request.getRequestURI().startsWith("/api/veterinario")){
-            if(request.getRequestURI().startsWith("/api/servico") ||
-                    request.getRequestURI().startsWith("/api/veterinario")){
-                System.out.println("Entrou no if");
-                if(!"POST".equals(request.getMethod()) &&
-                        !"PUT".equals(request.getMethod()) &&
-                        !"DELETE".equals(request.getMethod())){
-                    System.out.println("Entrou no if not post");
-                    filterChain.doFilter(request,response);
-                    return;
-                }
-                System.out.println("Passou");
-            }else{
-                filterChain.doFilter(request,response);
-                return;
-            }
+        if(request.getRequestURI().startsWith("/acessi/login") ||
+                request.getRequestURI().equals("/acessi/logout") ||
+                request.getRequestURI().equals("/acessi/personalizacao/ativa") ||
+                request.getRequestURI().equals("/acessi/departamento") ||
+                request.getRequestURI().equals("/acessi/usuario") ||
+                request.getRequestURI().startsWith("/swagger-ui")||
+                request.getRequestURI().startsWith("/v3/api-docs")){
+            System.out.println("Passou");
+            filterChain.doFilter(request,response);
+            return;
         }
         System.out.println("Passou if");
         String token = tokenUtils.buscarCookie(request);

@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -30,7 +31,8 @@ public class AuthenticationConfig {
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(jpaService)
-                .passwordEncoder(new BCryptPasswordEncoder());
+//                .passwordEncoder(new BCryptPasswordEncoder());
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
     // Configura o Cors
@@ -52,37 +54,37 @@ public class AuthenticationConfig {
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.
-                .requestMatchers( "/api/login",
-                        "/api/logout",
+        httpSecurity.authorizeRequests()
+                .requestMatchers( "/acessi/login/**",
+                        "/acessi/logout",
                         "/logout",
-                        "/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "/animal/*", "/animal", "/atendente/*", "/atendente")
-                .hasAnyAuthority("Atendente", "Veterinario")
-                .requestMatchers(HttpMethod.POST, "/animal", "/agenda", "/cliente")
-                .hasAuthority("Atendente")
-                .requestMatchers(HttpMethod.PUT, "/animal/*", "/agenda/*", "/cliente/*")
-                .hasAnyAuthority("Atendente", "Veterinario")
-                .requestMatchers(HttpMethod.DELETE, "/animal/*", "/agenda/*", "/cliente/*")
-                .hasAnyAuthority("Atendente", "Veterinario")
-
-
-                .requestMatchers(HttpMethod.GET, "/agenda/*", "/agenda", "/prontuario/*", "/prontuario")
-                .hasAnyAuthority("Atendente", "Veterinario", "Cliente")
-
-
-                .requestMatchers(HttpMethod.POST, "/prontuario", "/atendente", "/veterinario", "/servico")
-                .hasAuthority("Veterinario")
-                .requestMatchers(HttpMethod.PUT, "/prontuario/*", "/atendente/*", "/veterinario/*", "/servico/*")
-                .hasAuthority("Veterinario")
-                .requestMatchers(HttpMethod.DELETE, "/prontuario/*", "/atendente/*", "/veterinario/*", "/servico/*")
-                .hasAuthority("Veterinario")
+                        "/login/**").permitAll()
+//                .requestMatchers(HttpMethod.GET, "/animal/*", "/animal", "/atendente/*", "/atendente")
+//                .hasAnyAuthority("Atendente", "Veterinario")
+//                .requestMatchers(HttpMethod.POST, "/animal", "/agenda", "/cliente")
+//                .hasAuthority("Atendente")
+//                .requestMatchers(HttpMethod.PUT, "/animal/*", "/agenda/*", "/cliente/*")
+//                .hasAnyAuthority("Atendente", "Veterinario")
+//                .requestMatchers(HttpMethod.DELETE, "/animal/*", "/agenda/*", "/cliente/*")
+//                .hasAnyAuthority("Atendente", "Veterinario")
+//
+//
+//                .requestMatchers(HttpMethod.GET, "/agenda/*", "/agenda", "/prontuario/*", "/prontuario")
+//                .hasAnyAuthority("Atendente", "Veterinario", "Cliente")
+//
+//
+//                .requestMatchers(HttpMethod.POST, "/prontuario", "/atendente", "/veterinario", "/servico")
+//                .hasAuthority("Veterinario")
+//                .requestMatchers(HttpMethod.PUT, "/prontuario/*", "/atendente/*", "/veterinario/*", "/servico/*")
+//                .hasAuthority("Veterinario")
+//                .requestMatchers(HttpMethod.DELETE, "/prontuario/*", "/atendente/*", "/veterinario/*", "/servico/*")
+//                .hasAuthority("Veterinario")
 
 //                .requestMatchers(HttpMethod.GET, "/cliente/*")
 //                .hasAnyAuthority("Atendente", "Veterinario", "Cliente")
 
-                .requestMatchers(HttpMethod.GET, "/veterinario/*", "/veterinario", "/servico/*", "/servico")
-                .permitAll()
+//                .requestMatchers(HttpMethod.GET, "/veterinario/*", "/veterinario", "/servico/*", "/servico")
+//                .permitAll()
 
                 .anyRequest().authenticated()
                 .and().csrf().disable()
