@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/acessi")
+@RequestMapping("/")
 public class AuthenticationController {
     private TokenUtils tokenUtils = new TokenUtils();
     @Autowired
@@ -27,28 +27,28 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @GetMapping("/login/verify-token")
-    public ResponseEntity<Object> autenticacao(HttpServletRequest request) {
-        Boolean valido = false;
-        UserDetails usuario = null;
+    public ResponseEntity<Object> authentication(HttpServletRequest request) {
+        Boolean valid = false;
+        UserDetails user = null;
         try {
-            String token = tokenUtils.buscarCookie(request);
-            valido = tokenUtils.validarToken(token);
-            if (valido) {
-                String usuarioUsername = tokenUtils.getUsuarioUsername(token);
-                usuario = jpaService.loadUserByUsername(usuarioUsername);
+            String token = tokenUtils.getCookie(request);
+            valid = tokenUtils.validateToken(token);
+            if (valid) {
+                String emailUser = tokenUtils.getUserEmail(token);
+                user = jpaService.loadUserByUsername(emailUser);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(valido);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(valid);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(usuario);
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @GetMapping("/login/return-user-logged")
     public ResponseEntity<Object> returnUser(HttpServletRequest request) {
-        String token = tokenUtils.buscarCookie(request);
-        String usuarioUsername = tokenUtils.getUsuarioUsername(token);
-        UserJpa usuario = (UserJpa) jpaService.loadUserByUsername(usuarioUsername);
-        return ResponseEntity.status(HttpStatus.OK).body(usuario.getUser());
+        String token = tokenUtils.getCookie(request);
+        String emailUser = tokenUtils.getUserEmail(token);
+        UserJpa user = (UserJpa) jpaService.loadUserByUsername(emailUser);
+        return ResponseEntity.status(HttpStatus.OK).body(user.getUser());
     }
 
     @GetMapping("/logout")
@@ -64,19 +64,19 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login/auth")
-    public ResponseEntity<Object> autenticacao(
-            @RequestBody @Valid LoginUserDTO usuarioDTO,
+    public ResponseEntity<Object> authentication(
+            @RequestBody @Valid LoginUserDTO loginUserDTO,
             HttpServletResponse response) {
-
+        System.out.println("Entrou");
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                        usuarioDTO.getEmailUser(), usuarioDTO.getPasswordUser());
+                        loginUserDTO.getEmailUser(), loginUserDTO.getPasswordUser());
 
         Authentication authentication =
                 authenticationManager.authenticate(authenticationToken);
 
         if (authentication.isAuthenticated()) {
-            response.addCookie(tokenUtils.gerarCookie(authentication));
+            response.addCookie(tokenUtils.generateCookie(authentication));
             UserJpa userJpa = (UserJpa) authentication.getPrincipal();
 //            if(userJpa.getUser().getPrimeiroAcesso() == false) {
 //                Usuario usuario = userJpa.getUsuario();

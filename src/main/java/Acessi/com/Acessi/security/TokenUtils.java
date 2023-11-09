@@ -12,11 +12,10 @@ import java.util.Date;
 
 public class TokenUtils {
     private final String senhaForte = "c127a7b6adb013a5ff879ae71afa62afa4b4ceb72afaa54711dbcde67b6dc325";
-    //    private UsuarioServic usuarioService;
-    public String gerarToken(Authentication authentication) {
+    public String generateToken(Authentication authentication) {
         UserJpa userJpa = (UserJpa) authentication.getPrincipal();
         return Jwts.builder()
-                .setIssuer("CliniPet")
+                .setIssuer("Acessi")
                 .setSubject(userJpa.getUser().getEmailUser())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + 27000000))
@@ -25,7 +24,7 @@ public class TokenUtils {
     }
 
 
-    public Boolean validarToken(String token) {
+    public Boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(senhaForte).parseClaimsJws(token);
             return true;
@@ -35,27 +34,27 @@ public class TokenUtils {
 
     }
 
-    public Cookie gerarCookie(Authentication authentication){
-        Cookie cookie = new Cookie("token", gerarToken(authentication));
+    public Cookie generateCookie(Authentication authentication){
+        Cookie cookie = new Cookie("token", generateToken(authentication));
         cookie.setPath("/");
         cookie.setMaxAge(2700);
         return cookie;
     }
 
-    public String getUsuarioUsername(String token) {
-        String usuario = Jwts.parser()
+    public String getUserEmail(String token) {
+        String user = Jwts.parser()
                 .setSigningKey(senhaForte)
                 .parseClaimsJws(token)
                 .getBody().getSubject();
 
-        return usuario;
+        return user;
     }
 
-    public String getUsuarioUsernameByRequest(HttpServletRequest request){
-        String token = buscarCookie(request);
-        return getUsuarioUsername(token);
+    public String getUserEmailByRequest(HttpServletRequest request){
+        String token = getCookie(request);
+        return getUserEmail(token);
     }
-    public String buscarCookie(HttpServletRequest request) {
+    public String getCookie(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request,"token");
         if(cookie != null){
             return cookie.getValue();

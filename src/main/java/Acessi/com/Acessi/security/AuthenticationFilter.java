@@ -24,9 +24,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(request.getRequestURI().startsWith("/acessi/login") ||
                 request.getRequestURI().equals("/acessi/logout") ||
-                request.getRequestURI().equals("/acessi/personalizacao/ativa") ||
-                request.getRequestURI().equals("/acessi/departamento") ||
-                request.getRequestURI().equals("/acessi/usuario") ||
+                request.getRequestURI().equals("/acessi/user") ||
                 request.getRequestURI().startsWith("/swagger-ui")||
                 request.getRequestURI().startsWith("/v3/api-docs")){
             System.out.println("Passou");
@@ -34,18 +32,15 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         System.out.println("Passou if");
-        String token = tokenUtils.buscarCookie(request);
-//        System.out.println("Passou token");
-        Boolean valido = tokenUtils.validarToken(token);
-//        System.out.println(valido);
+        String token = tokenUtils.getCookie(request);
+        Boolean valido = tokenUtils.validateToken(token);
         if (valido) {
             System.out.println("Valido");
-//            System.out.println("Entrou token valido");
-            String usuarioUsername = tokenUtils.getUsuarioUsername(token);
-            UserDetails usuario = jpaService.loadUserByUsername(usuarioUsername);
+            String emailUser = tokenUtils.getUserEmail(token);
+            UserDetails user = jpaService.loadUserByUsername(emailUser);
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(usuario.getUsername(),
-                            null, usuario.getAuthorities());
+                    new UsernamePasswordAuthenticationToken(user.getUsername(),
+                            null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(
                     usernamePasswordAuthenticationToken
             );

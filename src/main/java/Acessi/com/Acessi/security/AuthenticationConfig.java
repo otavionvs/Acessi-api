@@ -31,8 +31,8 @@ public class AuthenticationConfig {
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(jpaService)
-//                .passwordEncoder(new BCryptPasswordEncoder());
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+                .passwordEncoder(new BCryptPasswordEncoder());
+//                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
     // Configura o Cors
@@ -55,46 +55,20 @@ public class AuthenticationConfig {
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .requestMatchers( "/acessi/login/**",
-                        "/acessi/logout",
-                        "/logout",
-                        "/login/**").permitAll()
-//                .requestMatchers(HttpMethod.GET, "/animal/*", "/animal", "/atendente/*", "/atendente")
-//                .hasAnyAuthority("Atendente", "Veterinario")
-//                .requestMatchers(HttpMethod.POST, "/animal", "/agenda", "/cliente")
-//                .hasAuthority("Atendente")
-//                .requestMatchers(HttpMethod.PUT, "/animal/*", "/agenda/*", "/cliente/*")
-//                .hasAnyAuthority("Atendente", "Veterinario")
-//                .requestMatchers(HttpMethod.DELETE, "/animal/*", "/agenda/*", "/cliente/*")
-//                .hasAnyAuthority("Atendente", "Veterinario")
-//
-//
-//                .requestMatchers(HttpMethod.GET, "/agenda/*", "/agenda", "/prontuario/*", "/prontuario")
-//                .hasAnyAuthority("Atendente", "Veterinario", "Cliente")
-//
-//
-//                .requestMatchers(HttpMethod.POST, "/prontuario", "/atendente", "/veterinario", "/servico")
-//                .hasAuthority("Veterinario")
-//                .requestMatchers(HttpMethod.PUT, "/prontuario/*", "/atendente/*", "/veterinario/*", "/servico/*")
-//                .hasAuthority("Veterinario")
-//                .requestMatchers(HttpMethod.DELETE, "/prontuario/*", "/atendente/*", "/veterinario/*", "/servico/*")
-//                .hasAuthority("Veterinario")
-
-//                .requestMatchers(HttpMethod.GET, "/cliente/*")
-//                .hasAnyAuthority("Atendente", "Veterinario", "Cliente")
-
-//                .requestMatchers(HttpMethod.GET, "/veterinario/*", "/veterinario", "/servico/*", "/servico")
-//                .permitAll()
+                .requestMatchers( "/login/**",
+                        "/logout/**",
+                        "/user").permitAll()
 
                 .anyRequest().authenticated()
                 .and().csrf().disable()
-//                .cors().configurationSource(corsConfigurationSource())
-                .logout().deleteCookies("token").permitAll()
+                .cors().configurationSource(corsConfigurationSource())
+                .and().logout().deleteCookies("token").permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(new AuthenticationFilter(new TokenUtils(), jpaService), UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
+
     //Serve pra poder fazer a injeção de dependência na controller
     @Bean
     public AuthenticationManager authenticationManager(

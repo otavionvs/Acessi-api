@@ -9,10 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -23,14 +21,18 @@ import java.util.Optional;
 public class UserController {
     private UserService userService;
 
+    @GetMapping
     public Optional<User> findById(Integer integer) {
         return userService.findById(integer);
     }
 
+    @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid UserDTO userDTO) {
         User user = new User();
         BeanUtils.copyProperties(userDTO, user);
         user.setAccessLevelUser(AccessLevel.User);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPasswordUser(encoder.encode(user.getPasswordUser()));
         return ResponseEntity.status(HttpStatus.OK).body(userService.save(user));
     }
 
