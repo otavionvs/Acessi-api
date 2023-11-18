@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "user")
 @Data
@@ -25,4 +27,7 @@ public class User {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private AccessLevel accessLevelUser;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<PCD> PCDs;
 }
