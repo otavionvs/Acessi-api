@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -40,7 +41,7 @@ public class AuthenticationConfig {
         CorsConfiguration corsConfiguration =
                 new CorsConfiguration();
         corsConfiguration.setAllowedOrigins(List.of(
-                "http://localhost:4200"
+                "http://localhost:3000"
         ));
         corsConfiguration.setAllowedMethods(List.of(
                 "POST", "DELETE", "GET", "PUT"
@@ -54,10 +55,10 @@ public class AuthenticationConfig {
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
+        httpSecurity.authorizeHttpRequests()
                 .requestMatchers( "/login/**",
                         "/logout/**",
-                        "/user").permitAll()
+                        "/user/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and().csrf().disable()
