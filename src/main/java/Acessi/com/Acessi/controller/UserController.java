@@ -21,10 +21,17 @@ import java.util.Optional;
 public class UserController {
     private UserService userService;
 
-    @GetMapping
-    public Optional<User> findById(Integer integer) {
-        return userService.findById(integer);
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById(@PathVariable Integer id) {
+        Optional<User> user = userService.findById(id);
+
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid UserDTO userDTO) {

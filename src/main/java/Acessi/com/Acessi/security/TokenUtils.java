@@ -1,5 +1,6 @@
 package Acessi.com.Acessi.security;
 
+import Acessi.com.Acessi.model.entity.User;
 import Acessi.com.Acessi.security.users.UserJpa;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -54,6 +55,7 @@ public class TokenUtils {
         String token = getCookie(request);
         return getUserEmail(token);
     }
+
     public String getCookie(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request,"token");
         if(cookie != null){
