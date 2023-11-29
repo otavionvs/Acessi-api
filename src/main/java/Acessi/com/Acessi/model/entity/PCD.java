@@ -42,6 +42,10 @@ public class PCD {
     @Column(nullable = false)
     private Boolean publicTransportation;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_address")
+    private Address addressPCD;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_user")

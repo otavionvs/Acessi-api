@@ -1,6 +1,7 @@
 package Acessi.com.Acessi.controller;
 
 import Acessi.com.Acessi.dto.PcdDTO;
+import Acessi.com.Acessi.model.entity.Address;
 import Acessi.com.Acessi.model.entity.PCD;
 import Acessi.com.Acessi.model.entity.User;
 import Acessi.com.Acessi.model.enums.AccessLevel;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
@@ -26,6 +28,11 @@ import java.util.Optional;
 public class PcdController {
     private PcdService pcdService;
     private UserService userService;
+
+    @GetMapping
+    public ResponseEntity<List<PCD>> findAll() {
+        return ResponseEntity.ok(pcdService.findAll());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<PCD> findById(@PathVariable Integer id) {
@@ -45,7 +52,9 @@ public class PcdController {
         BeanUtils.copyProperties(pcdDTO, pcd);
         pcd.setUser(userService.findByEmailUser(
                 new TokenUtils().getUserEmailByRequest(httpServletRequest)).get());
-        pcd.setBirthDatePCD(new Date());
+        Address address = new Address();
+        BeanUtils.copyProperties(pcdDTO.getAddressPCD(), address);
+        pcd.setAddressPCD(address);
         return ResponseEntity.status(HttpStatus.OK).body(pcdService.save(pcd));
     }
 }

@@ -5,6 +5,7 @@ import Acessi.com.Acessi.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,6 +15,10 @@ public class UserService {
 
     public User save(User entity) {
         return userRepository.save(entity);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     public Optional<User> findById(Integer integer) {

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
@@ -20,6 +21,11 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
     private UserService userService;
+
+    @GetMapping
+    public ResponseEntity<List<User>> findAll() {
+        return ResponseEntity.ok(userService.findAll());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable Integer id) {

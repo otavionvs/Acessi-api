@@ -5,6 +5,7 @@ import Acessi.com.Acessi.repository.PcdRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,5 +19,9 @@ public class PcdService {
 
     public Optional<PCD> findById(Integer integer) {
         return pcdRepository.findById(integer);
+    }
+
+    public List<PCD> findAll() {
+        return pcdRepository.findAll();
     }
 }
