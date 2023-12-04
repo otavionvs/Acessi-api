@@ -58,7 +58,8 @@ public class AuthenticationConfig {
         httpSecurity.authorizeHttpRequests()
                 .requestMatchers( "/login/**",
                         "/logout/**",
-                        "/user/**").permitAll()
+                        "/user/**",
+                        "/disability-type").permitAll()
 
                 .anyRequest().authenticated()
                 .and().csrf().disable()
