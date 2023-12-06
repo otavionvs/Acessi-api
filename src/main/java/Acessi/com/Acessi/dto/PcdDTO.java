@@ -20,7 +20,6 @@ public class PcdDTO {
     @NotBlank
     private String cpfPCD;
     @NotNull
-    @JsonFormat(pattern = "yyyy/MM/dd")
     private Date birthDatePCD;
     @NotBlank
     private String telephonePCD;

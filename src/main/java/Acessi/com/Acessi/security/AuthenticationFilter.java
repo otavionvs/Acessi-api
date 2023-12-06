@@ -25,6 +25,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         if(request.getRequestURI().startsWith("/acessi/login") ||
                 request.getRequestURI().equals("/acessi/logout") ||
                 request.getRequestURI().equals("/acessi/disability-type") ||
+                request.getRequestURI().startsWith("/acessi/pcd") ||
                 request.getRequestURI().startsWith("/acessi/user") ||
                 request.getRequestURI().startsWith("/swagger-ui")||
                 request.getRequestURI().startsWith("/v3/api-docs")){

@@ -60,7 +60,8 @@ public class AuthenticationConfig {
                 .requestMatchers( "/login/**",
                         "/logout/**",
                         "/user/**",
-                        "/disability-type").permitAll()
+                        "/disability-type",
+                        "/pcd/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and().csrf().disable()
