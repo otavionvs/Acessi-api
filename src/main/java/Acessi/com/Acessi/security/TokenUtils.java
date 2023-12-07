@@ -38,6 +38,7 @@ public class TokenUtils {
     public Cookie generateCookie(Authentication authentication){
         Cookie cookie = new Cookie("token", generateToken(authentication));
         cookie.setPath("/");
+        cookie.setMaxAge(1800);
         return cookie;
     }
 
