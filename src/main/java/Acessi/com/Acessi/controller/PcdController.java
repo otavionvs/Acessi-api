@@ -50,9 +50,8 @@ public class PcdController {
                                        HttpServletRequest httpServletRequest) {
         PCD pcd = new PCD();
         BeanUtils.copyProperties(pcdDTO, pcd);
-//        pcd.setUser(userService.findByEmailUser(
-//                new TokenUtils().getUserEmailByRequest(httpServletRequest)).get());
-        pcd.setUser(userService.findByEmailUser(pcd.getEmailPCD()).get());
+        pcd.setUser(userService.findByEmailUser(
+                new TokenUtils().getUserEmailByRequest(httpServletRequest)).get());
         Address address = new Address();
         BeanUtils.copyProperties(pcdDTO.getAddressPCD(), address);
         pcd.setAddressPCD(address);
