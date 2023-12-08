@@ -55,7 +55,7 @@ public class AuthenticationController {
     public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
         // Lógica de logout, como invalidar a sessão e remover o cookie de autenticação
         request.getSession().invalidate();
-        Cookie cookie = new Cookie("jwt", null);
+        Cookie cookie = new Cookie("token", null);
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
