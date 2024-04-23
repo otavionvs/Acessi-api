@@ -12,6 +12,8 @@ public enum AvaliationLocalType {
     Park("Park"),
     Public("Public"),
     Private("Private"),
-    Another("Another")
+    Another("Another");
+
+    String description;
 
 }

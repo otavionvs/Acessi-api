@@ -2,6 +2,7 @@ package Acessi.com.Acessi.dto;
 
 import Acessi.com.Acessi.model.enums.AvaliationLocalType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.awt.*;
@@ -14,5 +15,6 @@ public class AvaliationLocalDTO {
     private String name;
     @NotBlank
     private Image imageAvaliationLocal;
+    @NotNull
     private AvaliationLocalType typeLocalAvaliation;
 }
