@@ -41,7 +41,8 @@ public class AuthenticationConfig {
         CorsConfiguration corsConfiguration =
                 new CorsConfiguration();
         corsConfiguration.setAllowedOrigins(List.of(
-                "http://localhost:3000"
+                "http://localhost:3000",
+                "http://localhost:19006"
         ));
         corsConfiguration.setAllowedMethods(List.of(
                 "POST", "DELETE", "GET", "PUT"
@@ -58,7 +59,10 @@ public class AuthenticationConfig {
         httpSecurity.authorizeHttpRequests()
                 .requestMatchers( "/login/**",
                         "/logout/**",
-                        "/user/**").permitAll()
+                        "/user/**",
+                        "/company/**",
+                        "/disability-type",
+                        "/pcd/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and().csrf().disable()

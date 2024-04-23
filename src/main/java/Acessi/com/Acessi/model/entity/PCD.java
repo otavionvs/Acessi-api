@@ -1,6 +1,7 @@
 package Acessi.com.Acessi.model.entity;
 
 import Acessi.com.Acessi.model.enums.AccessLevel;
+import Acessi.com.Acessi.model.enums.DisabilityType;
 import Acessi.com.Acessi.model.enums.EducationLevel;
 import Acessi.com.Acessi.model.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,6 +42,13 @@ public class PCD {
     private Boolean employee;
     @Column(nullable = false)
     private Boolean publicTransportation;
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private DisabilityType disabilityTypePCD;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_address")
+    private Address addressPCD;
 
     @JsonIgnore
     @ManyToOne

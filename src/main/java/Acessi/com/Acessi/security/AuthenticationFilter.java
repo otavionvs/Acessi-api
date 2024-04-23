@@ -25,17 +25,18 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         if(request.getRequestURI().startsWith("/acessi/login") ||
                 request.getRequestURI().equals("/acessi/logout") ||
                 request.getRequestURI().startsWith("/acessi/user") ||
+                request.getRequestURI().startsWith("/acessi/company") ||
                 request.getRequestURI().startsWith("/swagger-ui")||
                 request.getRequestURI().startsWith("/v3/api-docs")){
-            System.out.println("Passou");
+//            System.out.println("Passou");
             filterChain.doFilter(request,response);
             return;
         }
-        System.out.println("Passou if");
+//        System.out.println("Passou if");
         String token = tokenUtils.getCookie(request);
         Boolean valido = tokenUtils.validateToken(token);
         if (valido) {
-            System.out.println("Valido");
+//            System.out.println("Valido");
             String emailUser = tokenUtils.getUserEmail(token);
             UserDetails user = jpaService.loadUserByUsername(emailUser);
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
@@ -44,7 +45,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(
                     usernamePasswordAuthenticationToken
             );
-            System.out.println("Foi pro filtro");
+//            System.out.println("Foi pro filtro");
             filterChain.doFilter(request, response);
             return;
         }

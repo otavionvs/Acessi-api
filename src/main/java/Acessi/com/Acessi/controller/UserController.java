@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
@@ -22,9 +23,21 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public Optional<User> findById(Integer integer) {
-        return userService.findById(integer);
+    public ResponseEntity<List<User>> findAll() {
+        return ResponseEntity.ok(userService.findAll());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById(@PathVariable Integer id) {
+        Optional<User> user = userService.findById(id);
+
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid UserDTO userDTO) {
