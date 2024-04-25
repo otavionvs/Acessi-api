@@ -22,8 +22,9 @@ public class AvaliationLocal {
     private Integer idLocalAvaliation;
     @Column(nullable = false, length = 200)
     private String name;
-    @Column(nullable = false)
-    private Image imageAvaliationLocal;
+    @Lob
+    @Column()
+    private byte[] imageAvaliationLocal;
     @Enumerated(EnumType.ORDINAL)
     @Column
     private AvaliationLocalType typeLocalAvaliation;

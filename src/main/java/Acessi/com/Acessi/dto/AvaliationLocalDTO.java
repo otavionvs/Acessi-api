@@ -9,12 +9,8 @@ import java.awt.*;
 @Getter
 public class AvaliationLocalDTO {
 
-    @NotBlank
     private Integer idLocalAvaliation;
-    @NotBlank
     private String name;
-    @NotBlank
-    private Image imageAvaliationLocal;
-    @NotNull
+    private byte[] imageAvaliationLocal;
     private AvaliationLocalType typeLocalAvaliation;
 }
