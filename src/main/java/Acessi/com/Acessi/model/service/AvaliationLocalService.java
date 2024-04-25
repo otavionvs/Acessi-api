@@ -27,4 +27,7 @@ public class AvaliationLocalService {
         return avaliationLocalRepository.findById(integer);
     }
 
+    public void deleteById(Integer integer) {
+        avaliationLocalRepository.deleteById(integer);
+    }
 }

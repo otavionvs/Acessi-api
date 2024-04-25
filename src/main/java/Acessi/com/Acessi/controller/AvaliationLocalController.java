@@ -44,12 +44,21 @@ public class AvaliationLocalController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> save(@RequestBody @Valid AvaliationLocalDTO avaliationDTO) {
+    public ResponseEntity<Object> save(@RequestBody AvaliationLocalDTO avaliationDTO) {
         AvaliationLocal avaliationLocal = new AvaliationLocal();
         BeanUtils.copyProperties(avaliationDTO, avaliationLocal);
         return ResponseEntity.status(HttpStatus.OK).body(avaliationService.save(avaliationLocal));
     }
 
+    @DeleteMapping
+    public ResponseEntity<Object> delete(@PathVariable Integer id){
+        if(avaliationService.findById(id) != null){
+            avaliationService.deleteById(id);
+            return ResponseEntity.ok(HttpStatus.OK);
+        }
+        return ResponseEntity.ok(HttpStatus.NOT_FOUND);
 
+
+    }
 
 }
