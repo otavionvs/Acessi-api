@@ -32,6 +32,15 @@ public class AvaliationLocalController {
         return ResponseEntity.ok(avaliationService.findAll());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Integer id){
+        Optional<AvaliationLocal> avaliationLocal = avaliationService.findById(id);
+        if(avaliationLocal.isPresent()){
+            avaliationService.deleteById(id);
+            return ResponseEntity.ok(HttpStatus.OK);
+        }
+        return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<AvaliationLocal> findById(@PathVariable Integer id){
@@ -50,15 +59,6 @@ public class AvaliationLocalController {
         return ResponseEntity.status(HttpStatus.OK).body(avaliationService.save(avaliationLocal));
     }
 
-    @DeleteMapping
-    public ResponseEntity<Object> delete(@PathVariable Integer id){
-        if(avaliationService.findById(id) != null){
-            avaliationService.deleteById(id);
-            return ResponseEntity.ok(HttpStatus.OK);
-        }
-        return ResponseEntity.ok(HttpStatus.NOT_FOUND);
 
-
-    }
 
 }
