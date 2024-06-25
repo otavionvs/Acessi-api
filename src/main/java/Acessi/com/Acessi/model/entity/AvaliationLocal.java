@@ -23,7 +23,7 @@ public class AvaliationLocal {
     @Column(nullable = false, length = 200)
     private String name;
     @Lob
-    @Column()
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] imageAvaliationLocal;
     @Enumerated(EnumType.ORDINAL)
     @Column

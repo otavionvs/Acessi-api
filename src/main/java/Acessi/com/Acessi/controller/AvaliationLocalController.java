@@ -29,6 +29,7 @@ public class AvaliationLocalController {
 
     @GetMapping
     public ResponseEntity<List<AvaliationLocal>> findAll() {
+
         return ResponseEntity.ok(avaliationService.findAll());
     }
 
@@ -56,6 +57,7 @@ public class AvaliationLocalController {
     public ResponseEntity<Object> save(@RequestBody AvaliationLocalDTO avaliationDTO) {
         AvaliationLocal avaliationLocal = new AvaliationLocal();
         BeanUtils.copyProperties(avaliationDTO, avaliationLocal);
+
         return ResponseEntity.status(HttpStatus.OK).body(avaliationService.save(avaliationLocal));
     }
 
