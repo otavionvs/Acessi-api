@@ -41,7 +41,6 @@ public class CompanyController {
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid CompanyDTO companyDTO) {
-        System.out.println("Entrou");
         Company company = new Company();
         BeanUtils.copyProperties(companyDTO, company);
 

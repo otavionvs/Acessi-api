@@ -21,7 +21,7 @@ public class Company {
     private String companyName;
     @Column
     private String siteCompany;
-    @Column(nullable = false)
+    @Column
     private String areaCompany;
     @Column(nullable = false, length = 11)
     private String telephoneCompany;

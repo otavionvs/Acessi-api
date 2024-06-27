@@ -12,9 +12,8 @@ public class CompanyDTO {
     private String companyName;
     @NotBlank
     private String cnpjCompany;
-    private String siteCompany;
-    @NotBlank
-    private String areaCompany;
+//    private String siteCompany;
+//    private String areaCompany;
     @NotBlank
     private String telephoneCompany;
     @NotBlank
