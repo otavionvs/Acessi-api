@@ -38,6 +38,7 @@ public class PCD {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private EducationLevel educationLevelPCD;
+
     @Column(nullable = false)
     private Boolean employee;
     @Column(nullable = false)

@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum Gender {
     Masculino("Masculino"), //0
     Feminino("Feminino"), //1
-    Outro("Outro"); //2
+    Outro("Outro"), //2
+    NOTDECLARE("Não declarado"); //3
 
 //    Masculine("Masculine"), //0
 //    Feminine("Feminine"), //1

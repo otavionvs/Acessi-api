@@ -9,9 +9,8 @@ public enum EducationLevel {
     Analfabeto("Analfabeto"),
     EnsinoFundamental("Ensino Fundamental"),
     EnsinoMedio("Ensino Médio"),
-    Graduando("Graduando"),
-    Graduado("Graduado"),
-    PosGraduado("Pós-Graduado");
+    EnsinoSuperior("Ensino Superior"),
+    PosGraduacao("Pós-Graduação");
 
 //    Illiterate("Illiterate"),
 //    ElementarySchool("Elementary School"),
