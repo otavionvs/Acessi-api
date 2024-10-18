@@ -2,7 +2,6 @@ package Acessi.com.Acessi.model.service;
 
 
 import Acessi.com.Acessi.model.entity.AvaliationLocal;
-import Acessi.com.Acessi.model.entity.Company;
 import Acessi.com.Acessi.repository.AvaliationLocalRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +24,11 @@ public class AvaliationLocalService {
 
     public Optional<AvaliationLocal> findById(Integer integer) {
         return avaliationLocalRepository.findById(integer);
+    }
+
+    public List<AvaliationLocal> findByName(String name)
+    {
+        return avaliationLocalRepository.findByName(name);
     }
 
     public void deleteById(Integer integer) {

@@ -53,6 +53,18 @@ public class AvaliationLocalController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/search-avaliation")
+    public ResponseEntity<List<AvaliationLocal>> findByName(@RequestParam String name) {
+        List<AvaliationLocal> listAvaliationLocal = avaliationService.findByName(name);
+
+        if (!listAvaliationLocal.isEmpty()) {
+            return ResponseEntity.ok(listAvaliationLocal);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+
+
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody AvaliationLocalDTO avaliationDTO) {
         AvaliationLocal avaliationLocal = new AvaliationLocal();
