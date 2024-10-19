@@ -38,7 +38,6 @@ public class UserController {
         }
     }
 
-
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid UserDTO userDTO) {
         User user = new User();

@@ -1,6 +1,8 @@
 package Acessi.com.Acessi.security;
 
+import Acessi.com.Acessi.model.entity.ResetPasswordToken;
 import Acessi.com.Acessi.model.entity.User;
+import Acessi.com.Acessi.model.service.ResetPasswordService;
 import Acessi.com.Acessi.security.users.UserJpa;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,7 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.util.WebUtils;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Optional;
 
 public class TokenUtils {
     private final String senhaForte = "c127a7b6adb013a5ff879ae71afa62afa4b4ceb72afaa54711dbcde67b6dc325";

@@ -62,6 +62,7 @@ public class AuthenticationConfig {
                         "/user/**",
                         "/company/**",
                         "/avaliation/**",
+                        "/reset-password/**",
                         "/disability-type",
                         "/pcd/**").permitAll()
 

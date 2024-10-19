@@ -17,6 +17,10 @@ public class UserService {
         return userRepository.save(entity);
     }
 
+    public void changePassword(User entity, String password) {
+        userRepository.updatePasswordUser(entity.getIdUser(), password);
+    }
+
     public List<User> findAll() {
         return userRepository.findAll();
     }

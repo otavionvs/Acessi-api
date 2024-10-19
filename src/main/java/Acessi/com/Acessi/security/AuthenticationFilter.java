@@ -27,6 +27,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                 request.getRequestURI().startsWith("/acessi/user") ||
                 request.getRequestURI().startsWith("/acessi/company") ||
                 request.getRequestURI().startsWith("/acessi/avaliation") ||
+                request.getRequestURI().startsWith("/acessi/reset-password") ||
                 request.getRequestURI().startsWith("/swagger-ui")||
                 request.getRequestURI().startsWith("/v3/api-docs")){
 //            System.out.println("Passou");
