@@ -31,6 +31,11 @@ public class AvaliationLocalService {
         return avaliationLocalRepository.findByName(name);
     }
 
+    public List<AvaliationLocal> findByNameContaining(String name)
+    {
+        return avaliationLocalRepository.findByNameContaining(name);
+    }
+
     public void deleteById(Integer integer) {
         avaliationLocalRepository.deleteById(integer);
     }

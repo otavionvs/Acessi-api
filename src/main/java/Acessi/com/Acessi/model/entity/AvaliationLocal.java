@@ -22,6 +22,8 @@ public class AvaliationLocal {
     private Integer idLocalAvaliation;
     @Column(nullable = false, length = 200)
     private String name;
+    @Column
+    private Float avaliationRating;
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] imageAvaliationLocal;

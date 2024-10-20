@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface AvaliationLocalRepository extends JpaRepository<AvaliationLocal, Integer>
 {
-    // Método de consulta baseado no nome da propriedade
     List<AvaliationLocal> findByName(String name);
+    List<AvaliationLocal> findByNameContaining(String name);
 
 }

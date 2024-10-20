@@ -27,9 +27,9 @@ public class AvaliationLocalController {
 
     private AvaliationLocalService avaliationService;
 
-    @GetMapping
-    public ResponseEntity<List<AvaliationLocal>> findAll() {
-
+    @GetMapping("/search-all-avaliation")
+    public ResponseEntity<List<AvaliationLocal>> findAll()
+    {
         return ResponseEntity.ok(avaliationService.findAll());
     }
 
@@ -55,15 +55,13 @@ public class AvaliationLocalController {
 
     @GetMapping("/search-avaliation")
     public ResponseEntity<List<AvaliationLocal>> findByName(@RequestParam String name) {
-        List<AvaliationLocal> listAvaliationLocal = avaliationService.findByName(name);
+        List<AvaliationLocal> listAvaliationLocal = avaliationService.findByNameContaining(name);
 
         if (!listAvaliationLocal.isEmpty()) {
             return ResponseEntity.ok(listAvaliationLocal);
         }
         return ResponseEntity.notFound().build();
     }
-
-
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody AvaliationLocalDTO avaliationDTO) {
