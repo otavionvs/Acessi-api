@@ -11,7 +11,7 @@ public class AvaliationLocalDTO {
 
     private Integer idLocalAvaliation;
     private String name;
-    public byte[] imageAvaliationLocal;
+    public String imageAvaliationLocal;
     private AvaliationLocalType typeLocalAvaliation;
     private Float avaliationRating;
 }

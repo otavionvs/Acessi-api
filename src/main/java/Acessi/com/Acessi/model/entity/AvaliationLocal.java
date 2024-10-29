@@ -20,13 +20,16 @@ public class AvaliationLocal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer idLocalAvaliation;
+
     @Column(nullable = false, length = 200)
     private String name;
+
     @Column
     private Float avaliationRating;
-    @Lob
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] imageAvaliationLocal;
+
+    @Column(columnDefinition = "LONGTEXT", nullable = false)
+    private String imageAvaliationLocal;
+
     @Enumerated(EnumType.ORDINAL)
     @Column
     private AvaliationLocalType typeLocalAvaliation;
