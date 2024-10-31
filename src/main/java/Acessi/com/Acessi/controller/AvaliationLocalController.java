@@ -3,9 +3,11 @@ package Acessi.com.Acessi.controller;
 import Acessi.com.Acessi.dto.AvaliationLocalDTO;
 import Acessi.com.Acessi.dto.CompanyDTO;
 import Acessi.com.Acessi.model.entity.AvaliationLocal;
+import Acessi.com.Acessi.model.entity.AvaliationLocalItem;
 import Acessi.com.Acessi.model.entity.Company;
 import Acessi.com.Acessi.model.entity.User;
 import Acessi.com.Acessi.model.enums.AccessLevel;
+import Acessi.com.Acessi.model.service.AvaliationLocalItemService;
 import Acessi.com.Acessi.model.service.AvaliationLocalService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,6 +28,8 @@ import java.util.Optional;
 public class AvaliationLocalController {
 
     private AvaliationLocalService avaliationService;
+
+    private AvaliationLocalItemService avaliationItemService;
 
     @GetMapping("/search-all-avaliation")
     public ResponseEntity<List<AvaliationLocal>> findAll()
@@ -69,6 +73,15 @@ public class AvaliationLocalController {
         BeanUtils.copyProperties(avaliationDTO, avaliationLocal);
 
         return ResponseEntity.status(HttpStatus.OK).body(avaliationService.save(avaliationLocal));
+    }
+
+
+    @PostMapping("/register-avaliation-item")
+    public ResponseEntity<Object> registerAvaliationItem(@RequestBody AvaliationLocalItem avaliationItemDTO) {
+        AvaliationLocalItem avaliationItemLocal = new AvaliationLocalItem();
+        BeanUtils.copyProperties(avaliationItemDTO, avaliationItemLocal);
+
+        return ResponseEntity.status(HttpStatus.OK).body(avaliationItemService.save(avaliationItemLocal));
     }
 
 
