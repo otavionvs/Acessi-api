@@ -10,4 +10,5 @@ public class AvaliationLocalItemDTO {
     private Integer idLocalAvaliation;
     private String avaliationGivenByUser;
     private Float avaliationRating;
+    private String idUser;
 }

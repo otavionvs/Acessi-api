@@ -27,4 +27,7 @@ public class AvaliationLocalItem {
     @Column
     private Float avaliationRating;
 
+    @Column(nullable = false, length = 500)
+    private String idUser;
+
 }
