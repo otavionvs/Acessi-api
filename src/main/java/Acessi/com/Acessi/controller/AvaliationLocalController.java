@@ -67,6 +67,15 @@ public class AvaliationLocalController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/get-avaliation-itens")
+    public ResponseEntity<List<AvaliationLocalItem>> findAvaliationComments(@RequestParam Integer idAvaliation) {
+        List<AvaliationLocalItem> avaliationItens = avaliationItemService.findByIdLocalAvaliation(idAvaliation);
+
+        if (!avaliationItens.isEmpty()) {
+            return ResponseEntity.ok(avaliationItens);
+        }
+        return ResponseEntity.notFound().build();
+    }
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody AvaliationLocalDTO avaliationDTO) {
         AvaliationLocal avaliationLocal = new AvaliationLocal();

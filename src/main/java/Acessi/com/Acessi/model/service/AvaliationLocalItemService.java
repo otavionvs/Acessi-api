@@ -27,5 +27,8 @@ public class AvaliationLocalItemService {
     public Optional<AvaliationLocalItem> findById(Integer integer) {
         return avaliationLocalItemRepository.findById(integer);
     }
+    public List<AvaliationLocalItem> findByIdLocalAvaliation(Integer idAvaliation) {
+        return avaliationLocalItemRepository.findByAvaliationLocal_IdLocalAvaliation(idAvaliation);
+    }
 
 }
