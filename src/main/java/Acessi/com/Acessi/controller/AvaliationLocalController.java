@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,7 +65,7 @@ public class AvaliationLocalController {
         if (!listAvaliationLocal.isEmpty()) {
             return ResponseEntity.ok(listAvaliationLocal);
         }
-        return ResponseEntity.notFound().build();
+        return  ResponseEntity.ok(new ArrayList<AvaliationLocal>());
     }
 
     @GetMapping("/get-avaliation-itens")
