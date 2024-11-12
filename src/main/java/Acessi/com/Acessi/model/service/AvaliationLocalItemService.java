@@ -7,6 +7,7 @@ import Acessi.com.Acessi.repository.AvaliationLocalItemRepository;
 import Acessi.com.Acessi.repository.AvaliationLocalRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,10 +16,33 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AvaliationLocalItemService {
     private AvaliationLocalItemRepository avaliationLocalItemRepository;
+    private AvaliationLocalRepository avaliationLocalRepository;
 
+    @Transactional
     public AvaliationLocalItem save(AvaliationLocalItem entity) {
+        if (Optional.ofNullable(entity.getAvaliationLocal()).isPresent()) {
+            Integer idLocalAvaliation = entity.getAvaliationLocal().getIdLocalAvaliation();
+
+            List<AvaliationLocalItem> itensAvaliations =
+                    avaliationLocalItemRepository.findByAvaliationLocal_IdLocalAvaliation(idLocalAvaliation);
+
+            itensAvaliations.add(entity);
+
+            double averageRating = itensAvaliations.stream()
+                    .mapToDouble(AvaliationLocalItem::getAvaliationRating)
+                    .average()
+                    .orElse(0.0);
+
+            avaliationLocalRepository.updateAvaliationRating(
+                    idLocalAvaliation,
+                    (float) averageRating
+            );
+        }
+
+        // Salvar a entidade e retornar
         return avaliationLocalItemRepository.save(entity);
     }
+
 
     public List<AvaliationLocalItem> findAll() {
         return avaliationLocalItemRepository.findAll();

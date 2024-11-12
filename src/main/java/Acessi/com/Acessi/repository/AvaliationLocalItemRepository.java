@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface AvaliationLocalItemRepository extends JpaRepository<AvaliationLocalItem, Integer> {
     List<AvaliationLocalItem> findByAvaliationLocal_IdLocalAvaliation(Integer idLocalAvaliation);
-
 }

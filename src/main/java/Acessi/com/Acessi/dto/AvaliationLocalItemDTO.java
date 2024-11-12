@@ -11,7 +11,7 @@ import java.util.Date;
 public class AvaliationLocalItemDTO {
 
     private Integer idLocalItemAvaliation;
-    private AvaliationLocal avaliationLocal;
+    private AvaliationLocalDTO avaliationLocal;
     private String avaliationGivenByUser;
     private Float avaliationRating;
     private String idUser;
