@@ -56,11 +56,17 @@ public class  PcdController {
 
         AuxiliarPcd auxiliarPcd = new AuxiliarPcd();
         BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD(), auxiliarPcd);
-        pcd.setAuxiliarPcd(auxiliarPcd);
+
+        Address addressAuxiliar = new Address();
+        BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD().getAddressAuxiliar(), addressAuxiliar);
+        auxiliarPcd.setAddressAuxiliar(addressAuxiliar);
+
+        pcd.setAuxiliarPCD(auxiliarPcd);
 
         InformationDeficiency informationDeficiency = new InformationDeficiency();
         BeanUtils.copyProperties(pcdDTO.getInformationDeficiency(), informationDeficiency);
         pcd.setInformationDeficiency(informationDeficiency);
+        System.out.println(pcd);
         return ResponseEntity.status(HttpStatus.OK).body(pcdService.save(pcd));
     }
 }

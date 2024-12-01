@@ -79,8 +79,4 @@ public class InformationDeficiency {
 
     @Enumerated(value = EnumType.STRING)
     private HousingConditions housingConditions;
-
-    @OneToOne
-    @JoinColumn(name = "idPCD", nullable = false)
-    private PCD pcd;
 }

@@ -31,4 +31,8 @@ public class Address {
     @OneToOne
     @JoinColumn(name = "idPCD", nullable = false)
     private PCD pcd;
+
+    @OneToOne
+    @JoinColumn(name = "idAuxiliarPCD", nullable = false)
+    private AuxiliarPcd auxiliarPCD;
 }

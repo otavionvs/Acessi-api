@@ -42,11 +42,9 @@ public class PcdDTO {
     @Valid
     private Address addressPCD;
 
-    @NotNull
     @Valid
     private AuxiliarPcd auxiliarPCD;
 
-    @NotNull
     @Valid
     private InformationDeficiency informationDeficiency;
 

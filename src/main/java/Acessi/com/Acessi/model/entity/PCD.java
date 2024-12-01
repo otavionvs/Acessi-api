@@ -59,8 +59,8 @@ public class PCD {
     private Address addressPCD;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_auxiliarPcd")
-    private AuxiliarPcd auxiliarPcd;
+    @JoinColumn(name = "id_auxiliarPCD")
+    private AuxiliarPcd auxiliarPCD;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_informationDeficiency")
