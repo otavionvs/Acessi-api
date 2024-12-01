@@ -43,11 +43,7 @@ public class AuxiliarPcd {
     @Column(nullable = false)
     private FamilyBond familyBond;
 
-    @OneToOne
-    @JoinColumn(name = "idAdressAuxiliarPCD", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idAdress", nullable = false)
     private Address addressAuxiliar;
-
-    @OneToOne
-    @JoinColumn(name = "idPCD", nullable = false)
-    private PCD pcd;
 }

@@ -27,12 +27,4 @@ public class Address {
     private String complementAddress;
     @Column(nullable = false, length = 10)
     private String cepAddress;
-
-    @OneToOne
-    @JoinColumn(name = "idPCD", nullable = false)
-    private PCD pcd;
-
-    @OneToOne
-    @JoinColumn(name = "idAuxiliarPCD", nullable = false)
-    private AuxiliarPcd auxiliarPCD;
 }

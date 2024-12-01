@@ -48,11 +48,13 @@ public class  PcdController {
                                        HttpServletRequest httpServletRequest) {
         PCD pcd = new PCD();
         BeanUtils.copyProperties(pcdDTO, pcd);
+
         pcd.setUser(userService.findByEmailUser(
                 new TokenUtils().getUserEmailByRequest(httpServletRequest)).get());
-        Address address = new Address();
-        BeanUtils.copyProperties(pcdDTO.getAddressPCD(), address);
-        pcd.setAddressPCD(address);
+
+        Address addressPCD = new Address();
+        BeanUtils.copyProperties(pcdDTO.getAddressPCD(), addressPCD);
+        pcd.setAddressPCD(addressPCD);
 
         AuxiliarPcd auxiliarPcd = new AuxiliarPcd();
         BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD(), auxiliarPcd);
@@ -66,7 +68,7 @@ public class  PcdController {
         InformationDeficiency informationDeficiency = new InformationDeficiency();
         BeanUtils.copyProperties(pcdDTO.getInformationDeficiency(), informationDeficiency);
         pcd.setInformationDeficiency(informationDeficiency);
-        System.out.println(pcd);
+
         return ResponseEntity.status(HttpStatus.OK).body(pcdService.save(pcd));
     }
 }
