@@ -1,6 +1,8 @@
 package Acessi.com.Acessi.dto;
 
 import Acessi.com.Acessi.model.entity.Address;
+import Acessi.com.Acessi.model.entity.AuxiliarPcd;
+import Acessi.com.Acessi.model.entity.InformationDeficiency;
 import Acessi.com.Acessi.model.enums.DisabilityType;
 import Acessi.com.Acessi.model.enums.EducationLevel;
 import Acessi.com.Acessi.model.enums.Gender;
@@ -35,11 +37,19 @@ public class PcdDTO {
     private Boolean employee;
     @NotNull
     private Boolean publicTransportation;
-    @NotNull
-    private DisabilityType disabilityTypePCD;
+
     @NotNull
     @Valid
     private Address addressPCD;
+
+    @NotNull
+    @Valid
+    private AuxiliarPcd auxiliarPCD;
+
+    @NotNull
+    @Valid
+    private InformationDeficiency informationDeficiency;
+
     private Race race;
     private String bpcNumber;
     private String nit;

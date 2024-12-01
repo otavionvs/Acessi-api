@@ -1,9 +1,7 @@
 package Acessi.com.Acessi.controller;
 
 import Acessi.com.Acessi.dto.PcdDTO;
-import Acessi.com.Acessi.model.entity.Address;
-import Acessi.com.Acessi.model.entity.PCD;
-import Acessi.com.Acessi.model.entity.User;
+import Acessi.com.Acessi.model.entity.*;
 import Acessi.com.Acessi.model.enums.AccessLevel;
 import Acessi.com.Acessi.model.service.PcdService;
 import Acessi.com.Acessi.model.service.UserService;
@@ -55,6 +53,14 @@ public class  PcdController {
         Address address = new Address();
         BeanUtils.copyProperties(pcdDTO.getAddressPCD(), address);
         pcd.setAddressPCD(address);
+
+        AuxiliarPcd auxiliarPcd = new AuxiliarPcd();
+        BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD(), auxiliarPcd);
+        pcd.setAuxiliarPcd(auxiliarPcd);
+
+        InformationDeficiency informationDeficiency = new InformationDeficiency();
+        BeanUtils.copyProperties(pcdDTO.getInformationDeficiency(), informationDeficiency);
+        pcd.setInformationDeficiency(informationDeficiency);
         return ResponseEntity.status(HttpStatus.OK).body(pcdService.save(pcd));
     }
 }

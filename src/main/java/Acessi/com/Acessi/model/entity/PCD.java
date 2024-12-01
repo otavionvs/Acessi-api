@@ -53,13 +53,18 @@ public class PCD {
     private Boolean employee;
     @Column(nullable = false)
     private Boolean publicTransportation;
-    @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    private DisabilityType disabilityTypePCD;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_address")
     private Address addressPCD;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_auxiliarPcd")
+    private AuxiliarPcd auxiliarPcd;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_informationDeficiency")
+    private InformationDeficiency informationDeficiency;
 
     @JsonIgnore
     @ManyToOne
