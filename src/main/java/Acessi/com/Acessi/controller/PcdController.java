@@ -1,10 +1,11 @@
 package Acessi.com.Acessi.controller;
 
-import Acessi.com.Acessi.dto.PcdDTO;
+import Acessi.com.Acessi.dto.*;
 import Acessi.com.Acessi.model.entity.Address;
 import Acessi.com.Acessi.model.entity.PCD;
-import Acessi.com.Acessi.model.entity.User;
-import Acessi.com.Acessi.model.enums.AccessLevel;
+import Acessi.com.Acessi.model.enums.DisabilityType;
+import Acessi.com.Acessi.model.enums.EducationLevel;
+import Acessi.com.Acessi.model.enums.Gender;
 import Acessi.com.Acessi.model.service.PcdService;
 import Acessi.com.Acessi.model.service.UserService;
 import Acessi.com.Acessi.security.TokenUtils;
@@ -14,11 +15,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin
@@ -56,5 +57,73 @@ public class PcdController {
         BeanUtils.copyProperties(pcdDTO.getAddressPCD(), address);
         pcd.setAddressPCD(address);
         return ResponseEntity.status(HttpStatus.OK).body(pcdService.save(pcd));
+    }
+
+    @GetMapping("/type")
+    public ResponseEntity<List<DisabilityTypeCountDTO>> findDisabilityTypeCount() {
+        List<DisabilityTypeCountDTO> disabilityTypeCountDTOS = new ArrayList<>();
+
+        for (DisabilityType type : DisabilityType.values()) {
+            disabilityTypeCountDTOS.add(new DisabilityTypeCountDTO(
+                    pcdService.countByDisabilityTypePCD(type),
+                    type.name()
+            ));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(disabilityTypeCountDTOS);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> count() {
+        return ResponseEntity.status(HttpStatus.OK).body(pcdService.count());
+    }
+
+    @GetMapping("/education")
+    public ResponseEntity<List<EducationLevelCountDTO>> findEducationCount() {
+        List<EducationLevelCountDTO> educationLevelCountDTOS = new ArrayList<>();
+
+        for (EducationLevel education : EducationLevel.values()) {
+            educationLevelCountDTOS.add(new EducationLevelCountDTO(
+                    pcdService.countByEducationLevelPCD(education),
+                    education.getEducationLevel()
+            ));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(educationLevelCountDTOS);
+    }
+
+    @GetMapping("/gender")
+    public ResponseEntity<List<GenderCountDTO>> findGenderCount() {
+        List<GenderCountDTO> genderCountDTOS = new ArrayList<>();
+
+        for (Gender gender : Gender.values()) {
+            genderCountDTOS.add(new GenderCountDTO(
+                    pcdService.countByGenderPCD(gender),
+                    gender.getGender()
+            ));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(genderCountDTOS);
+    }
+
+    @GetMapping("/neighborhood")
+    public ResponseEntity<List<Map<String, Long>>> countByNeighborhood() {
+        return ResponseEntity.status(HttpStatus.OK).body(pcdService.countByNeighborhood());
+    }
+
+    @GetMapping("/pyramid")
+    public ResponseEntity<List<PyramidDTO>> countByAgeAndGender() {
+        List<PyramidDTO> pyramidDTOS = new ArrayList<>();
+        for(Object[] ageRange : pcdService.countByAgeAndGender()) {
+            PyramidDTO pyramidDTO = new PyramidDTO();
+            pyramidDTO.setAgeRangeCount((Long) ageRange[2]);
+            pyramidDTO.setGenderPCD((String) ageRange[1].toString());
+            System.out.println(pyramidDTO.getGenderPCD());
+            pyramidDTO.setAgeRange((String) ageRange[0]);
+
+            pyramidDTOS.add(pyramidDTO);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(pyramidDTOS);
     }
 }

@@ -19,7 +19,7 @@ public class TokenUtils {
                 .setIssuer("Acessi")
                 .setSubject(userJpa.getUser().getEmailUser())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + 27000000))
+                .setExpiration(new Date(new Date().getTime() + 7200000))
                 .signWith(SignatureAlgorithm.HS256, senhaForte)
                 .compact();
     }
@@ -38,7 +38,7 @@ public class TokenUtils {
     public Cookie generateCookie(Authentication authentication){
         Cookie cookie = new Cookie("token", generateToken(authentication));
         cookie.setPath("/");
-        cookie.setMaxAge(1800);
+        cookie.setMaxAge(7200);
         return cookie;
     }
 

@@ -28,6 +28,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private AccessLevel accessLevelUser;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PCD> PCDs;
 }
