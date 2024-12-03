@@ -48,6 +48,7 @@ public class PCD {
     private String susNumber;
     private Boolean hasSons;
     private Boolean neededAssistency;
+    private Boolean termsAccepted;
 
     @Column(nullable = false)
     private Boolean employee;

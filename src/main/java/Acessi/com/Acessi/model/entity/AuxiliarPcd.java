@@ -46,4 +46,7 @@ public class AuxiliarPcd {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idAdress", nullable = false)
     private Address addressAuxiliar;
+
+    private Boolean withPCD;
+
 }

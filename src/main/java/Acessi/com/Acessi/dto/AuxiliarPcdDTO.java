@@ -30,4 +30,6 @@ public class AuxiliarPcdDTO {
     private FamilyBond familyBond;
     @Valid
     private Address addressAuxiliar;
+    private Boolean withPCD;
+
 }

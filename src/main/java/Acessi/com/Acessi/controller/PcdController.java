@@ -50,20 +50,27 @@ public class  PcdController {
         BeanUtils.copyProperties(pcdDTO, pcd);
 
         pcd.setUser(userService.findByEmailUser(
-                new TokenUtils().getUserEmailByRequest(httpServletRequest)).get());
+                new TokenUtils().getUserEmailByRequest(httpServletRequest)).orElse(null));
 
-        Address addressPCD = new Address();
-        BeanUtils.copyProperties(pcdDTO.getAddressPCD(), addressPCD);
-        pcd.setAddressPCD(addressPCD);
+        if (pcdDTO.getAddressPCD() != null) {
+            Address addressPCD = new Address();
+            BeanUtils.copyProperties(pcdDTO.getAddressPCD(), addressPCD);
+            pcd.setAddressPCD(addressPCD);
+        }
 
-        AuxiliarPcd auxiliarPcd = new AuxiliarPcd();
-        BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD(), auxiliarPcd);
+        if (pcdDTO.getAuxiliarPCD() != null) {
+            AuxiliarPcd auxiliarPcd = new AuxiliarPcd();
+            BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD(), auxiliarPcd);
 
-        Address addressAuxiliar = new Address();
-        BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD().getAddressAuxiliar(), addressAuxiliar);
-        auxiliarPcd.setAddressAuxiliar(addressAuxiliar);
+            if (pcdDTO.getAuxiliarPCD().getAddressAuxiliar() != null) {
+                Address addressAuxiliar = new Address();
+                BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD().getAddressAuxiliar(), addressAuxiliar);
+                auxiliarPcd.setAddressAuxiliar(addressAuxiliar);
+            }
 
-        pcd.setAuxiliarPCD(auxiliarPcd);
+            pcd.setAuxiliarPCD(auxiliarPcd);
+        }
+
 
         InformationDeficiency informationDeficiency = new InformationDeficiency();
         BeanUtils.copyProperties(pcdDTO.getInformationDeficiency(), informationDeficiency);
