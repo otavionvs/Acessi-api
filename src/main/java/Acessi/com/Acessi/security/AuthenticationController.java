@@ -68,7 +68,7 @@ public class AuthenticationController {
             @RequestBody @Valid LoginUserDTO loginUserDTO,
             HttpServletResponse response) {
         System.out.println("Entrou");
-        UsernamePasswordAuthenticationToken authenticationToken =
+        UsernamePasswordAuthenticationToken authenticationToken = 
                 new UsernamePasswordAuthenticationToken(
                         loginUserDTO.getEmailUser(), loginUserDTO.getPasswordUser());
 

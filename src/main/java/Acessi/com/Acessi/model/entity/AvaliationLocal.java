@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "AvaliationLocal")
@@ -20,12 +21,18 @@ public class AvaliationLocal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer idLocalAvaliation;
+
     @Column(nullable = false, length = 200)
     private String name;
-    @Lob
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] imageAvaliationLocal;
+
+    @Column
+    private Float avaliationRating;
+
+    @Column(columnDefinition = "LONGTEXT", nullable = false)
+    private String imageAvaliationLocal;
+
     @Enumerated(EnumType.ORDINAL)
     @Column
     private AvaliationLocalType typeLocalAvaliation;
+
 }
