@@ -86,8 +86,16 @@ public class PcdController {
     }
 
     @GetMapping("/type")
-    public ResponseEntity<List<Map<String, Long>>> findDisabilityTypeCount() {
-        return ResponseEntity.status(HttpStatus.OK).body(pcdService.countByDeficiencyType());
+    public ResponseEntity<List<DisabilityTypeCountDTO>> findDisabilityTypeCount() {
+        List<DisabilityTypeCountDTO> disabilityTypeCountDTOS = new ArrayList<>();
+        for (Map<String, Long> deficiency : pcdService.countByDeficiencyType()) {
+            DisabilityTypeCountDTO disabilityTypeCountDTO = new DisabilityTypeCountDTO(
+                    deficiency.get("disabilityTypeCount"),
+                    DeficiencyType.valueOf(deficiency.get("disabilityTypeName") + "").getLabel()
+            );
+            disabilityTypeCountDTOS.add(disabilityTypeCountDTO);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(disabilityTypeCountDTOS);
     }
 
     @GetMapping("/count")

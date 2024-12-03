@@ -4,6 +4,8 @@ import Acessi.com.Acessi.dto.UserDTO;
 import Acessi.com.Acessi.model.entity.User;
 import Acessi.com.Acessi.model.enums.AccessLevel;
 import Acessi.com.Acessi.model.service.UserService;
+import Acessi.com.Acessi.security.TokenUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -48,5 +50,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.save(user));
     }
 
+    @GetMapping("/isAdmin")
+    public  ResponseEntity<Boolean> isAdmin(HttpServletRequest httpServletRequest) {
+        User user = userService.findByEmailUser(
+                new TokenUtils().getUserEmailByRequest(httpServletRequest)).orElse(null);
+        if (user != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(user.getAccessLevelUser() == AccessLevel.Admin);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(false);
+    }
 
 }
