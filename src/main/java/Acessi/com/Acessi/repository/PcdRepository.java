@@ -2,6 +2,7 @@ package Acessi.com.Acessi.repository;
 
 import Acessi.com.Acessi.dto.DisabilityTypeCountDTO;
 import Acessi.com.Acessi.model.entity.PCD;
+import Acessi.com.Acessi.model.enums.DeficiencyType;
 import Acessi.com.Acessi.model.enums.DisabilityType;
 import Acessi.com.Acessi.model.enums.EducationLevel;
 import Acessi.com.Acessi.model.enums.Gender;
@@ -15,9 +16,12 @@ import java.util.Map;
 @Repository
 public interface PcdRepository extends JpaRepository<PCD, Integer> {
 
-    Long countByDisabilityTypePCD(DisabilityType disabilityType);
+//    Long countByDeficiencyType(DeficiencyType deficiencyType);
     Long countByEducationLevelPCD(EducationLevel educationLevel);
     Long countByGenderPCD(Gender gender);
+
+    @Query("SELECT a.deficiency as disabilityTypeName, COUNT(p.idPCD) as disabilityTypeCount FROM PCD p JOIN p.informationDeficiency a GROUP BY a.deficiency")
+    List<Map<String, Long>>  countByDeficiencyType();
 
     @Query("SELECT a.neighborhoodAddress as neighborhoodName, COUNT(p.idPCD) as neighborhoodCount FROM PCD p JOIN p.addressPCD a GROUP BY a.neighborhoodAddress")
     List<Map<String, Long>> countByNeighborhood();

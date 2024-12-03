@@ -54,5 +54,4 @@ public class PcdDTO {
     private String susNumber;
     private Boolean hasSons;
     private Boolean neededAssistency;
-    private Boolean termsAccepted;
 }

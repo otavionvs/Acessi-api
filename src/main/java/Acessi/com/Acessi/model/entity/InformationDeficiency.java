@@ -2,6 +2,7 @@ package Acessi.com.Acessi.model.entity;
 
 import Acessi.com.Acessi.model.enums.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class InformationDeficiency {
     private Boolean deficiencyAcquired;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     private DeficiencyType deficiency;
 
     @Enumerated(value = EnumType.STRING)

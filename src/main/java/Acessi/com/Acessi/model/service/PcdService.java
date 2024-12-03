@@ -2,6 +2,7 @@ package Acessi.com.Acessi.model.service;
 
 import Acessi.com.Acessi.dto.DisabilityTypeCountDTO;
 import Acessi.com.Acessi.model.entity.PCD;
+import Acessi.com.Acessi.model.enums.DeficiencyType;
 import Acessi.com.Acessi.model.enums.DisabilityType;
 import Acessi.com.Acessi.model.enums.EducationLevel;
 import Acessi.com.Acessi.model.enums.Gender;
@@ -31,8 +32,8 @@ public class PcdService {
         return pcdRepository.findAll();
     }
 
-    public Long countByDisabilityTypePCD(DisabilityType disabilityType) {
-        return pcdRepository.countByDisabilityTypePCD(disabilityType);
+    public List<Map<String, Long>> countByDeficiencyType() {
+        return pcdRepository.countByDeficiencyType();
     }
 
     public long count() {

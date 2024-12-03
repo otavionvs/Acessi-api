@@ -48,7 +48,6 @@ public class PCD {
     private String susNumber;
     private Boolean hasSons;
     private Boolean neededAssistency;
-    private Boolean termsAccepted;
 
     @Column(nullable = false)
     private Boolean employee;
@@ -64,7 +63,7 @@ public class PCD {
     private AuxiliarPcd auxiliarPCD;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_informationDeficiency")
+    @JoinColumn(name = "id_informationDeficiency", nullable = false)
     private InformationDeficiency informationDeficiency;
 
     @JsonIgnore

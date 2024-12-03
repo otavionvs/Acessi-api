@@ -3,12 +3,12 @@ package Acessi.com.Acessi.controller;
 import Acessi.com.Acessi.dto.*;
 import Acessi.com.Acessi.model.entity.Address;
 import Acessi.com.Acessi.model.entity.PCD;
+import Acessi.com.Acessi.model.enums.DeficiencyType;
 import Acessi.com.Acessi.model.enums.DisabilityType;
 import Acessi.com.Acessi.model.enums.EducationLevel;
 import Acessi.com.Acessi.model.enums.Gender;
 import Acessi.com.Acessi.dto.PcdDTO;
 import Acessi.com.Acessi.model.entity.*;
-import Acessi.com.Acessi.model.enums.AccessLevel;
 import Acessi.com.Acessi.model.service.PcdService;
 import Acessi.com.Acessi.model.service.UserService;
 import Acessi.com.Acessi.security.TokenUtils;
@@ -18,7 +18,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -87,17 +86,8 @@ public class PcdController {
     }
 
     @GetMapping("/type")
-    public ResponseEntity<List<DisabilityTypeCountDTO>> findDisabilityTypeCount() {
-        List<DisabilityTypeCountDTO> disabilityTypeCountDTOS = new ArrayList<>();
-
-        for (DisabilityType type : DisabilityType.values()) {
-            disabilityTypeCountDTOS.add(new DisabilityTypeCountDTO(
-                    pcdService.countByDisabilityTypePCD(type),
-                    type.name()
-            ));
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(disabilityTypeCountDTOS);
+    public ResponseEntity<List<Map<String, Long>>> findDisabilityTypeCount() {
+        return ResponseEntity.status(HttpStatus.OK).body(pcdService.countByDeficiencyType());
     }
 
     @GetMapping("/count")
