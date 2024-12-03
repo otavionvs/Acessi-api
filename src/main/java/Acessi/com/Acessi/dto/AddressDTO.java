@@ -20,4 +20,5 @@ public class AddressDTO {
     private String complementAddress;
     @NotNull
     private String cepAddress;
+    private Integer userId;
 }

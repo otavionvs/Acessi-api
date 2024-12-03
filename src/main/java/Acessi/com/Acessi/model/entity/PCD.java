@@ -4,6 +4,7 @@ import Acessi.com.Acessi.model.enums.AccessLevel;
 import Acessi.com.Acessi.model.enums.DisabilityType;
 import Acessi.com.Acessi.model.enums.EducationLevel;
 import Acessi.com.Acessi.model.enums.Gender;
+import Acessi.com.Acessi.model.enums.Race;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class PCD {
     private Integer idPCD;
     @Column(nullable = false, length = 150)
     private String namePCD;
-    @Column(nullable = false, length = 14)
+    @Column(nullable = false, length = 11)
     private String cpfPCD;
     @Column(nullable = false)
     private Date birthDatePCD;
@@ -39,17 +40,32 @@ public class PCD {
     @Enumerated(value = EnumType.STRING)
     private EducationLevel educationLevelPCD;
 
+    @Enumerated(value = EnumType.STRING)
+    private Race race;
+
+    private String bpcNumber;
+    private String nit;
+    private String susNumber;
+    private Boolean hasSons;
+    private Boolean neededAssistency;
+    private Boolean termsAccepted;
+
     @Column(nullable = false)
     private Boolean employee;
     @Column(nullable = false)
     private Boolean publicTransportation;
-    @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    private DisabilityType disabilityTypePCD;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_address")
     private Address addressPCD;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_auxiliarPCD")
+    private AuxiliarPcd auxiliarPCD;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_informationDeficiency")
+    private InformationDeficiency informationDeficiency;
 
     @JsonIgnore
     @ManyToOne

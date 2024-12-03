@@ -6,6 +6,9 @@ import Acessi.com.Acessi.model.entity.PCD;
 import Acessi.com.Acessi.model.enums.DisabilityType;
 import Acessi.com.Acessi.model.enums.EducationLevel;
 import Acessi.com.Acessi.model.enums.Gender;
+import Acessi.com.Acessi.dto.PcdDTO;
+import Acessi.com.Acessi.model.entity.*;
+import Acessi.com.Acessi.model.enums.AccessLevel;
 import Acessi.com.Acessi.model.service.PcdService;
 import Acessi.com.Acessi.model.service.UserService;
 import Acessi.com.Acessi.security.TokenUtils;
@@ -15,6 +18,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -51,11 +55,34 @@ public class PcdController {
                                        HttpServletRequest httpServletRequest) {
         PCD pcd = new PCD();
         BeanUtils.copyProperties(pcdDTO, pcd);
+
         pcd.setUser(userService.findByEmailUser(
-                new TokenUtils().getUserEmailByRequest(httpServletRequest)).get());
-        Address address = new Address();
-        BeanUtils.copyProperties(pcdDTO.getAddressPCD(), address);
-        pcd.setAddressPCD(address);
+                new TokenUtils().getUserEmailByRequest(httpServletRequest)).orElse(null));
+
+        if (pcdDTO.getAddressPCD() != null) {
+            Address addressPCD = new Address();
+            BeanUtils.copyProperties(pcdDTO.getAddressPCD(), addressPCD);
+            pcd.setAddressPCD(addressPCD);
+        }
+
+        if (pcdDTO.getAuxiliarPCD() != null) {
+            AuxiliarPcd auxiliarPcd = new AuxiliarPcd();
+            BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD(), auxiliarPcd);
+
+            if (pcdDTO.getAuxiliarPCD().getAddressAuxiliar() != null) {
+                Address addressAuxiliar = new Address();
+                BeanUtils.copyProperties(pcdDTO.getAuxiliarPCD().getAddressAuxiliar(), addressAuxiliar);
+                auxiliarPcd.setAddressAuxiliar(addressAuxiliar);
+            }
+
+            pcd.setAuxiliarPCD(auxiliarPcd);
+        }
+
+
+        InformationDeficiency informationDeficiency = new InformationDeficiency();
+        BeanUtils.copyProperties(pcdDTO.getInformationDeficiency(), informationDeficiency);
+        pcd.setInformationDeficiency(informationDeficiency);
+
         return ResponseEntity.status(HttpStatus.OK).body(pcdService.save(pcd));
     }
 
